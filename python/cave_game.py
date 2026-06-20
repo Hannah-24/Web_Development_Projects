@@ -9,10 +9,10 @@ treasure = 0
 
 while health > 0:
      print(f"\nHealth: {health} | Treasure: {treasure}")
-     choice = input("You see 2 paths. Go left or right?").lower()
+     choice = input("You see 2 paths. Go left, right, or quit? ").lower()
 
      if choice == "quit":
-          print("You escaped the cave. Game over.")
+          print("You quit. Game over.")
           break
      elif choice == "left":
           event = random.choice(["trap", "treasure", "empty"])

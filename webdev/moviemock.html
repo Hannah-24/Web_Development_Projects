@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SineKuno</title>
+<style>
+  :root {
+    --bg: #0b0c10;
+    --card: #1f2833;
+    --text: #c5c6c7;
+    --accent: #66fcf1;
+    --accent-2: #45a29e;
+  }
+  
+    * { 
+     box-sizing: border-box; 
+     margin: 0; 
+     padding: 0; 
+     }
+  
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(11, 12, 16, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    border-bottom: 1px solid #1f2833;
+  }
+
+  header h1 { 
+     color: var(--accent); 
+     font-size: 1.5rem; 
+     }
+
+  nav input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--card);
+    background: var(--card);
+    color: var(--text);
+    width: 240px;
+    outline: none;
+  }
+
+  nav input:focus { 
+     border-color: var(--accent); 
+     }
+
+  .hero {
+    padding: 80px 5%;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(102,252,241,0.1), transparent);
+  }
+
+  .hero h2 { 
+     font-size: 2.5rem; 
+     margin-bottom: 12px; 
+     color: #fff; 
+     }
+
+  .hero p { 
+     max-width: 600px; 
+     margin: 0 auto 24px; 
+     opacity: 0.8; 
+     }
+
+  .btn {
+    padding: 12px 24px;
+    background: var(--accent);
+    color: #0b0c10;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .btn:hover { 
+     background: var(--accent-2); 
+     transform: translateY(-2px); 
+     }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    padding: 24px 5%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    background: var(--card);
+    border: 1px solid transparent;
+    border-radius: 20px;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .filter-btn.active, .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0 5% 60px;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+
+  .card:hover { 
+     transform: translateY(-6px); 
+     }
+
+  .card img { 
+     width: 100%; 
+     height: 330px; 
+     object-fit: cover; 
+     display: block; 
+     }
+
+  .card-body { 
+     padding: 14px; 
+     }
+
+  .card-body h3 { 
+     font-size: 1rem; 
+     margin-bottom: 6px; 
+     color: #fff;   
+     }
+
+  .meta { 
+     display: flex; 
+     justify-content: space-between; 
+     font-size: 0.85rem; 
+     opacity: 0.7; 
+     }
+
+  .fav {
+    background: none;
+    border: none;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    padding: 20px;
+  }
+
+  .modal.active { 
+     display: flex; 
+     }
+
+  .modal-content {
+    max-width: 800px;
+    width: 100%;
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .modal-content iframe { 
+     width: 100%; 
+     height: 450px; 
+     border: none; 
+     }
+
+  .modal-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .close {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 5%;
+    border-top: 1px solid var(--card);
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 600px) {
+    .hero h2 { font-size: 1.8rem; }
+    nav input { width: 160px; }
+    .modal-content iframe { height: 240px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SineKuno</h1>
+  <nav>
+    <input type="text" id="search" placeholder="Search movies...">
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Discover Movies That Move You</h2>
+  <p>A single-page demo with search, filters, and trailer previews with no backend. For web design demo purposes only.</p>
+  <button class="btn" onclick="scrollToGrid()">Browse Movies</button>
+</section>
+
+<div class="controls" id="filters">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="action">Action</button>
+  <button class="filter-btn" data-filter="sci-fi">Sci-Fi</button>
+  <button class="filter-btn" data-filter="drama">Drama</button>
+  <button class="filter-btn" data-filter="favorites">Favorites</button>
+</div>
+
+<section class="grid" id="movie-grid"></section>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modal-title">Trailer</h3>
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+    <iframe id="trailer" src="" allowfullscreen></iframe>
+  </div>
+</div>
+
+<footer>
+  Built with HTML, CSS, and vanilla JS. This is a personal project only..
+</footer>
+
+<script>
+const movies = [
+  {
+    id: 1,
+    title: "Neon Horizon",
+    genre: "sci-fi",
+    year: 2024,
+    rating: 8.2,
+    img: "https://picsum.photos/seed/1/400/600",
+    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    id: 2,
+    title: "Midnight Heist",
+    genre: "action",
+    year: 2023,
+    rating: 7.5,
+    img: "https://picsum.photos/seed/2/400/600",
+    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    id: 3,
+    title: "The Quiet Shore",
+    genre: "drama",
+    year: 2022,
+    rating: 8.7,
+    img: "https://picsum.photos/seed/3/400/600",
+    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    id: 4,
+    title: "Iron Vanguard",
+    genre: "action",
+    year: 2024,
+    rating: 6.9,
+    img: "https://picsum.photos/seed/4/400/600",
+    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    id: 5,
+    title: "Echoes of Mars",
+    genre: "sci-fi",
+    year: 2023,
+    rating: 7.8,
+    img: "https://picsum.photos/seed/5/400/600",
+    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    id: 6,
+    title: "Fading Light",
+    genre: "drama",
+    year: 2021,
+    rating: 8.1,
+    img: "https://picsum.photos/seed/6/400/600",
+    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  }
+];
+
+let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+let currentFilter = 'all';
+let searchTerm = '';
+
+const grid = document.getElementById('movie-grid');
+const searchInput = document.getElementById('search');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const modal = document.getElementById('modal');
+
+function render() {
+  let filtered = movies.filter(m => {
+    const matchesSearch = m.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = currentFilter === 'all' 
+      ? true 
+      : currentFilter === 'favorites' 
+        ? favorites.includes(m.id)
+        : m.genre === currentFilter;
+    return matchesSearch && matchesFilter;
+  });
+
+  grid.innerHTML = filtered.map(m => `
+    <div class="card">
+      <img src="${m.img}" alt="${m.title}" onclick="openModal(${m.id})">
+      <div class="card-body">
+        <h3>${m.title}</h3>
+        <div class="meta">
+          <span>${m.genre.toUpperCase()} • ${m.year}</span>
+          <span>⭐ ${m.rating}</span>
+        </div>
+        <button class="fav" onclick="toggleFav(${m.id})">
+          ${favorites.includes(m.id) ? '♥' : '♡'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFav(id) {
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(f => f !== id);
+  } else {
+    favorites.push(id);
+  }
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  render();
+}
+
+function openModal(id) {
+  const movie = movies.find(m => m.id === id);
+  document.getElementById('modal-title').textContent = movie.title + ' - Trailer';
+  document.getElementById('trailer').src = movie.trailer + '?autoplay=1';
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  modal.classList.remove('active');
+  document.getElementById('trailer').src = '';
+}
+
+function scrollToGrid() {
+  document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+}
+
+searchInput.addEventListener('input', e => {
+  searchTerm = e.target.value;
+  render();
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', e => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    render();
+  });
+});
+
+modal.addEventListener('click', e => {
+  if (e.target === modal) closeModal();
+});
+
+render();
+</script>
+</body>
+</html>

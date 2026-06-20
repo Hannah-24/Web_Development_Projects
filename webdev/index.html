@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Simple JS Projects | Portfolio</title>
+
+     <style>
+          :root{
+               --bg: #0f1115; 
+               --card: #1a1d23;
+               --text: #e6e6e6;
+               --muted: #a3a3a3;
+               --accent: #6ee7b7;
+               --accent2: #60a5fa;
+               --radius: 16px;
+          }
+          *{
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+          }
+          html{
+               scroll-behavior: smooth;
+          }
+          body{
+               font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+               line-height: 1.6;
+               color: var(--text);       
+               background: var(--bg);       
+          }
+          nav{
+               position: sticky;
+               top: 0;
+               background: linear-gradient(90deg, var(--accent), var(--accent2));
+               padding: 1rem 2rem;
+               box-shadow: 0 2px 5px rgba(0,0, 0, 0);
+               z-index: 100;
+          }
+          nav ul{
+               display: flex;
+               gap: 4rem;
+               list-style: none;
+               justify-content: center;
+          }
+          nav a{
+               text-decoration: none;
+               color: var(--bg);
+               font-weight: 600;
+               transition: color 0.2s;
+          }
+          nav a:hover{
+               color: #6366f1;
+          }
+          section{
+               padding: 80px 20px;
+               min-height: 80vh;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+          }
+          .container{
+               max-width: 1000px;
+               width: 100%;
+          }
+          #home{
+               color: var(--text);
+               text-align: center;
+          }
+          #home h1{
+               font-size: 3rem;
+               margin-bottom: 1rem;
+          }
+          #home p{
+               font-size: 1.2rem;
+               opacity: 0.9;
+          }
+          .btn{
+               display: inline-block;
+               margin-top: 2rem;
+               padding: 12px 30px;
+               background: linear-gradient(90deg, var(--accent), var(--accent2));
+               color: var(--bg);
+               text-decoration: none;
+               border-radius: 8px;
+               font-weight: 600;
+               transition: transform 0.2s;
+          }
+          .btn:hover{
+               transform: translateY(-2px);
+          }
+          #about{
+               background: var(--bg);
+          }
+          #about h2, #projects h2{
+               font-size: 2.5rem;
+               margin-bottom: 1.5rem;
+               text-align: center;
+          }
+          .app-container{
+               max-width: 1100px;
+               margin: 0 auto;
+               padding: 60px 20px;
+          }
+          .grid{
+               display: grid;
+               grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+               gap: 24px;
+          }
+          .card{
+               background: var(--card);
+               border-radius: var(--radius);
+               padding: 24px;
+               border: 1px solid #252830;
+               transition: transform 0.2s, border-color 0.2s;
+          }
+          .card:hover{
+               transform: translateY(-4px);
+               border-color: var(--accent);
+          }
+          .card h3{
+               margin-bottom: 16px;
+               font-size: 1.3rem;
+          }
+          .card p{
+               color: var(--muted);
+               margin-bottom: 16px;
+               font-size: 0.95rem;
+          }
+          .tags{
+               display: flex;
+               flex-wrap: wrap;
+               gap: 8px;
+               margin-bottom: 16px;
+          }
+          .tag{
+               background: #252830;
+               color: var(---accent);
+               padding: 4px 10px;
+               border-radius: 999px;
+               font-size: 0.8rem;
+          }
+          .app-btn{
+               display: inline-block;
+               padding: 10px 18px;
+               background: var(--accent);
+               color: #0f1115;
+               text-decoration: none;
+               border-radius: 8px;
+               font-weight: 600;
+               transition: opacity 0.2s;
+          }
+          .btn:hover{
+               opacity: 0.85;
+          }
+          footer{
+               text-align: center;
+               padding: 40px 20px;
+               color: var(--muted);
+               border-top: 1px solid #252830;
+               margin-top: 60px;
+          }
+          @media (max-width: 600px){
+               header h1{
+                    font-size: 2rem;
+               }
+          }
+     </style>
+</head>
+<body>
+
+     <nav>
+          <ul>
+               <li><a href="#home">Home</a></li>
+               <li><a href="#about">About</a></li>
+               <li><a href="#projects">Projects</a></li>
+               <li><a href="#contact">Contact</a></li>
+          </ul>
+     </nav>
+
+     <section id="home">
+          <div class="container">
+               <h1>Hey, I'm Hannah T. Pabalinas</h1>
+               <p>Frontend Developer | JavaScript Enthusiast | Linux Geek</p>
+               <a href="#projects" class="btn">View my Work</a>
+          </div>
+     </section>
+
+     <section id="about">
+          <div class="container">
+               <h2>About Me</h2>
+               <p>
+                    I'm a self-taught developer who loves building small, useful things with JavaScript. I enjoy learning by doing, so I made simple projects to practice DOM manipulation, events, and basic logic. When I'm not coding, I read docs and break stuff until it works.
+               </p>
+          </div>
+     </section>
+
+     <section class="app-container" id="projects">
+               
+          <div class="grid">
+               <div class="card">
+                    <h3>Todo App</h3>
+                    <p>A fast local todo list with add, delete, and localStorage persistence. Works entirely offline.</p>
+
+                    <div class="tags">
+                         <span class="tag">Vanilla JS</span>
+                         <span class="tag">localStorage</span>
+                         <span class="tag">DOM</span>
+                    </div>
+                    <a href="todo.html" class="app-btn">Live Demo</a>
+               </div>
+
+               <div class="card">
+                    <h3>Memory Game</h3>
+                    <p>Flip cards to find matching pairs. Tracks moves and score. Built with pure JS.</p>
+
+                    <div class="tags">
+                         <span class="tag">JS</span>
+                         <span class="tag">CSS Grid</span>
+                    </div>
+                    <a href="memory.html" class="app-btn">Live Demo</a>
+               </div>
+
+               <div class="card">
+                    <h3>Weather Widget</h3>
+                    <p>Offline mock weather app using static JSON data. Shows how to parse and display API-like data.</p>
+
+                    <div class="tags">
+                         <span class="tag">JS</span>
+                         <span class="tag">JSON</span>
+                         <span class="tag">UI</span>
+                    </div>
+                    <a href="weather.html" class="app-btn">Live Demo</a>
+               </div>
+
+               <div class="card">
+                    <h3>Quiz App</h3>
+                    <p>Multiple choice quiz with score tracking and result screen. All logic client-side.</p>
+
+                    <div class="tags">
+                         <span class="tag">State Mgmt</span>
+                         <span class="tag">Events</span>
+                    </div>
+                    <a href="quiz.html" class="app-btn">Live Demo</a>
+               </div>
+
+               <div class="card">
+                    <h3>Canvas Drawing</h3>
+                    <p>Simple paint app using HTML Canvas. Draw, change colors, clear, and download your art.</p>
+
+                    <div class="tags">
+                         <span class="tag">Canvas API</span>
+                         <span class="tag">Mouse Events</span>
+                    </div>
+                    <a href="draw.html" class="app-btn">Live Demo</a>
+               </div>
+
+          </div>
+          
+     </section>
+
+     <footer id="contact">
+          <p>Toledo City, Cebu, Philippines. 2026. <a href="mailto:hannah.pabalinas@gmail.com" style="color:var(---accent)">Contact</a></p>
+     </footer>
+
+     <script>
+          document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+               anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                         behavior: 'smooth'
+                    });
+               });
+          });
+     </script>
+
+</body>
+</html>
